@@ -1,0 +1,96 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #1a1a1a;
+  color: white;
+}
+
+.navbar {
+  background-color: #333;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between; /* separa izquierda y derecha */
+  align-items: center;
+}
+
+.navbar-left a {
+  font-size: 1.4rem;
+  color: #ffd700;
+}
+
+.navbar-right  {
+  display: flex;
+  gap: 20px;
+   color: white;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: clamp(1.5rem, 5vw, 1.8rem);
+}
+
+.contenedor {
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  min-height: calc(100vh - 60px);
+}
+
+.contenedor_historico {
+  width: 80%;
+  padding: 15px;
+  background-color: #414040;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.info-panel {
+  background-color: #444;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+.info-panel h3 {
+  color: #ffd700;
+  font-size: 18px;
+  margin: 0 0 10px 0;
+}
+
+.lista-historico {
+  background-color: #333;
+  padding: 15px;
+  border-radius: 5px;
+}
+
+#tabla-historico {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: monospace;
+  font-size: 14px;
+}
+
+#tabla-historico th,
+#tabla-historico td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #555;
+}
+
+#tabla-historico th {
+  background-color: #4682b4;
+  color: white;
+  font-weight: bold;
+}
+
+#tabla-historico tr:nth-child(even) {
+  background-color: #3a3a3a;
+}
+
+#tabla-historico tr:hover {
+  background-color: #4a4a4a;
+}

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurar Pista</title>
+    <link rel="stylesheet" href="config.css">
+    <link rel="icon" type="image/x-icon" href="images/roboticon.ico">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navbar-left">
+            <a class="tituloNavBar" href="index.html">Regresar</a>
+        </div>
+        <div class="navbar-right">
+            <a class="tituloNavBar" href="create-user.html">Usuarios</a>
+            <a class="tituloNavBar" href="historical.html">Histórico</a>
+            <a class="tituloNavBar" href="view-stats.html">Estadísticas</a>
+        </div>
+    </nav>
+
+    <div class="configurar-pista-container">
+        <h2>Configurar Pista</h2>
+        <p>Haga clic izquierdo sobre los cuadros que conformarán la pista</p>
+
+        <div class="status-edicion" id="status-edicion" style="display: none;"></div>
+
+        <div class="grid-container" id="grid-container"></div>
+
+        <div class="button-group">
+            <button class="btn guardar" id="btn-guardar" onclick="guardarPista()">Guardar</button>
+            <button class="btn cancelar" id="btn-cancelar" style="display: none;" onclick="cancelarEdicion()">Cancelar</button>
+            <button class="btn borrar" id="btn-borrar" style="display: none;" onclick="borrarPista()">Borrar</button>
+            <button class="btn borrar" id="btn-limpiar" onclick="limpiarGrid()">Limpiar grid</button>
+            <button class="btn cargar" onclick="cargarDesdeArchivo()">Cargar desde Archivo</button>
+            <button class="btn exportar" onclick="exportarHaciaArchivo()">Exportar hacia Archivo</button>
+        </div>
+
+        <div class="pistas-guardadas">
+            <h3>Pistas Guardadas del Usuario</h3>
+            <ul id="pistas-list"></ul>
+            <p class="no-pistas" id="no-pistas" style="display: none;">No hay pistas guardadas</p>
+        </div>
+    </div>
+    <script src="config.js"></script>
+</body>
+
+</html>

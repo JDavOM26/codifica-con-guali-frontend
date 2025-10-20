@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gestionar Administradores - Codifica con Guali</title>
+  <link rel="stylesheet" href="create-user.css">
+  <link rel="icon" type="image/x-icon" href="images/roboticon.ico">
+</head>
+<body>
+  <body>
+  <nav class="navbar">
+  <div class="navbar-left">
+    <a class="tituloNavBar" href="config.html">Regresar</a>
+  </div>
+
+  <div class="navbar-right">
+    <a class="tituloNavBar" href="historical.html">Histórico</a>
+    <a class="tituloNavBar" href="view-stats.html">Estadísticas</a>
+  </div>
+</nav>
+
+  <div class="contenedor">
+    <div class="contenedor_gestion">
+      <div class="info-panel">
+        <h3>Gestionar Administradores</h3>
+      </div>
+      <div class="formulario">
+        <h4 id="titulo-formulario">Crear Nuevo Administrador</h4>
+        <div class="form-campos">
+          <input type="hidden" id="id-usuario">
+          <label for="nombre">Nombre:</label>
+          <input type="text" id="nombre" placeholder="Nombre del administrador">
+          <label for="rol">Rol:</label>
+          <input type="text" id="rol" placeholder="rol">
+          <label for="contrasena">Contraseña:</label>
+          <input type="password" id="contrasena" placeholder="Contraseña">
+          <div class="acciones">
+            <div class="accion" id="accion-guardar" onclick="guardarUsuario()">Guardar</div>
+            <div class="accion" id="accion-cancelar" onclick="limpiarFormulario()" style="display: none;">Cancelar</div>
+          </div>
+        </div>
+      </div>
+      <div class="lista-usuarios">
+        <table id="tabla-usuarios">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Rol</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpo-usuarios">
+            <!-- Los datos se llenarán dinámicamente con JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="create-user.js"></script>
+</body>
+</html>

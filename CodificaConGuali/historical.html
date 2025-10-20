@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Histórico de Acciones - Codifica con Guali</title>
+  <link rel="stylesheet" href="historical.css">
+  <link rel="icon" type="image/x-icon" href="images/roboticon.ico">
+</head>
+<body>
+   <nav class="navbar">
+  <div class="navbar-left">
+    <a class="tituloNavBar" href="config.html">Regresar</a>
+  </div>
+
+  <div class="navbar-right">
+    <a class="tituloNavBar" href="create-user.html">Usuarios</a>
+    <a class="tituloNavBar" href="view-stats.html">Estadísticas</a>
+  </div>
+</nav>
+
+  <div class="contenedor">
+    <div class="contenedor_historico">
+      <div class="info-panel">
+        <h3>Histórico de Acciones</h3>
+      </div>
+      <div class="lista-historico">
+        <table id="tabla-historico">
+          <thead>
+            <tr>
+              <th>Fecha y Hora</th>
+              <th>Administrador</th>
+              <th>Acción</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpo-historico">
+            <!-- Los datos se llenarán dinámicamente con JavaScript -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script src="historical.js"></script>
+  </body>
+</html>

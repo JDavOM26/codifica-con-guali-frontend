@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Codifica con Guali</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" type="image/x-icon" href="images/roboticon.ico">
+</head>
+<body>
+  <nav class="navbar">
+    <a class="tituloNavBar">Codifica con Guali</a>
+  </nav>
+
+  <div class="contenedor">
+    <div class="contenedor_uno">
+      <div id="mensaje-juego" class="mensaje-juego"></div>
+      <div class="tablero" id="tablero"></div>
+      <div class="botones">
+        <div class="movimientos">
+          <div class="comando" id="up" onclick="añadirComando('ARRIBA')" title="Mover Adelante">⬆️</div>
+          <div class="comando" id="left" onclick="añadirComando('IZQUIERDA')" title="Girar Izquierda">↰</div>
+          <div class="comando" id="right" onclick="añadirComando('DERECHA')" title="Girar Derecha">↱</div>
+          <div class="comando" id="loop" onclick="añadirComando('INICIA_BUCLE')" title="Repetir Último Comando">🔄</div>
+        </div>
+        <div class="acciones">
+          <div class="accion" id="accion-ejecutar" onclick="ejecutarComandos()">Ejecutar</div>
+          <div class="accion" id="accion-regresar" onclick="resetearJuego()">Regresar</div>
+          <div class="accion" id="accion-configurar" onclick="mostrarModalAutenticacion()">Configurar</div>
+        </div>
+      </div>
+    </div>
+    <div class="contenedor_dos">
+      <div class="info-panel">
+        <h3>Área de Movimientos</h3>
+      </div>
+      <div class="lista">
+        <select id="comandoSeleccionado" size="10">
+          <option value="">Comandos Seleccionados</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Autenticación -->
+  <div id="modal-autenticacion" class="modal">
+    <div class="modal-contenido">
+      <h3>Autenticación Requerida</h3>
+      <div class="form-campos">
+        <label for="usuario">Usuario:</label>
+        <input type="text" id="usuario" placeholder="Nombre de usuario">
+        <label for="contrasena">Contraseña:</label>
+        <input type="password" id="contrasena" placeholder="Contraseña">
+        <div class="modal-acciones">
+          <div class="accion" id="accion-entrar" onclick="validarAutenticacion()">Entrar</div>
+          <div class="accion" id="accion-cancelar" onclick="cerrarModalAutenticacion()">Cancelar</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

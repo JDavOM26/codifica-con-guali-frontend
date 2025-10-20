@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Estadísticas de Uso - Codifica con Guali</title>
+  <link rel="stylesheet" href="view-stats.css">
+  <link rel="icon" type="image/x-icon" href="images/roboticon.ico">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+   <nav class="navbar">
+  <div class="navbar-left">
+    <a class="tituloNavBar" href="config.html">Regresar</a>
+  </div>
+
+  <div class="navbar-right">
+    <a class="tituloNavBar" href="create-user.html">Usuarios</a>
+    <a class="tituloNavBar" href="historical.html">Histórico</a>
+  </div>
+</nav>
+
+  <div class="contenedor">
+    <div class="contenedor_estadisticas">
+      <div class="info-panel">
+        <h3>Estadísticas de Uso</h3>
+      </div>
+      <div class="filtro">
+        <label for="fecha-inicio">Fecha Inicio:</label>
+        <input type="date" id="fecha-inicio">
+        <label for="fecha-fin">Fecha Fin:</label>
+        <input type="date" id="fecha-fin">
+        <div class="accion" id="accion-filtrar" onclick="filtrarEstadisticas()">Filtrar</div>
+      </div>
+      <div class="estadisticas">
+        <table id="tabla-estadisticas">
+          <thead>
+            <tr>
+              <th>Métrica</th>
+              <th>Valor</th>
+            </tr>
+          </thead>
+          <tbody id="cuerpo-estadisticas">
+            <tr><td>Usuarios que visitaron la página</td><td id="visitantes">0</td></tr>
+            <tr><td>Misiones completadas exitosamente</td><td id="exitos">0</td></tr>
+            <tr><td>Misiones fallidas</td><td id="fallos">0</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="grafico">
+        <canvas id="grafico-estadisticas"></canvas>
+      </div>
+    </div>
+  </div>
+  <script src="view-stats.js"></script>
+</body>
+</html>
