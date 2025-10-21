@@ -245,7 +245,7 @@ body {
   font-weight: bold;
 }
 
-/* Estilos para el modal */
+
 .modal {
   display: none;
   position: fixed;
@@ -306,4 +306,16 @@ body {
 
 #accion-cancelar {
   background-color: #8b4513;
+}
+
+
+
+.modal-acciones .accion {
+  margin-top: 15px;
+  cursor: pointer;
+  padding: 5px 15px;
+  background: #007bff;
+  color: white;
+  border-radius: 5px;
+  display: inline-block;
 }

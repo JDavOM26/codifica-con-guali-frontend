@@ -31,8 +31,14 @@ async function sendUsageLog(eventType) {
       },
       body: `eventType=${encodeURIComponent(eventType)}`,
     });
+
     if (response.ok) {
       console.log('Log de uso enviado con éxito');
+
+      if (eventType === 'VISIT') {
+        const now = Date.now();
+        localStorage.setItem('visitLogged', now.toString());
+      }
     } else {
       console.error('Error al enviar el log de uso:', response.status);
     }
@@ -43,7 +49,14 @@ async function sendUsageLog(eventType) {
 
 function init() {
   inicializarJuego();
-  sendUsageLog('VISIT');
+
+  const visitTimestamp = localStorage.getItem('visitLogged');
+  const now = Date.now();
+  const oneDay = 24 * 60 * 60 * 1000; 
+
+  if (!visitTimestamp || now - parseInt(visitTimestamp) > oneDay) {
+    sendUsageLog('VISIT'); 
+  }
 }
 
 function inicializarJuego() {
@@ -78,12 +91,12 @@ async function cargarPistasAleatorias() {
       }));
     } else {
       console.error('Error al cargar pistas aleatorias:', response.status);
-      // Fallback to a default track
+      
       return [{ id: 1, nombre: 'Pista por Defecto', configuracion: [0, 1, 2, 3, 4], fechaCreacion: new Date() }];
     }
   } catch (error) {
     console.error('Error en la solicitud:', error);
-    // Fallback to a default track
+  
     return [{ id: 1, nombre: 'Pista por Defecto', configuracion: [0, 1, 2, 3, 4], fechaCreacion: new Date() }];
   }
 }
@@ -282,8 +295,7 @@ function cerrarModalAutenticacion() {
   document.getElementById("modal-autenticacion").style.display = "none";
 }
 
-// La función validarAutenticacion ahora está en el HTML inline
-// para poder usar sessionStorage sin problemas
+
 
 window.onload = init;
 
@@ -293,49 +305,72 @@ function wait(ms) {
 
 
 
+async function validarAutenticacion() {
+  const username = document.getElementById("usuario").value.trim();
+  const password = document.getElementById("contrasena").value.trim();
 
-  async function validarAutenticacion() {
-      const username = document.getElementById("usuario").value.trim();
-      const password = document.getElementById("contrasena").value.trim();
+  if (!username || !password) {
+    mostrarModalError("Por favor, complete ambos campos.");
+    return;
+  }
 
-      if (!username || !password) {
-        alert("Por favor, complete ambos campos.");
-        return;
-      }
+  try {
+    const response = await fetch('https://codifica-con-guali.onrender.com/api/noauth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ username, password })
+    });
 
-      try {
-        const response = await fetch('https://codifica-con-guali.onrender.com/api/noauth/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            username: username,
-            password: password
-          })
-        });
+    const data = await response.json(); 
 
-        if (response.ok) {
-           const data = await response.json();
-          document.cookie = `token=${data.token}; path=/; max-age=3600; secure; samesite=strict`;
-          document.cookie = `idUser=${data.idUser}; path=/; max-age=3600; secure; samesite=strict`;
-
-          await sendUsageLog('SUCCESS');
-          cerrarModalAutenticacion();
-          window.location.href = "config.html";
-        } else {
-          await sendUsageLog('FAIL');
-          alert("Usuario o contraseña incorrectos.");
-          document.getElementById("contrasena").value = "";
-          document.getElementById("usuario").focus();
-        }
-      } catch (error) {
-        console.error('Error en la autenticación:', error);
-        alert("Error al conectar con el servidor. Por favor, intente nuevamente.");
-      }
+    if (response.ok) {
+      document.cookie = `token=${data.token}; path=/; max-age=3600; secure; samesite=strict`;
+      document.cookie = `idUser=${data.idUser}; path=/; max-age=3600; secure; samesite=strict`;
+      cerrarModalAutenticacion();
+      window.location.href = "config.html";
+    } else {
+      await sendUsageLog('FAIL');
+      mostrarModalError(data.message || "Usuario o contraseña incorrectos.");
+      document.getElementById("contrasena").value = "";
+      document.getElementById("usuario").focus();
     }
 
-    // Permitir login con Enter
+  } catch (error) {
+    console.error('Error en la autenticación:', error);
+    mostrarModalError("Error al conectar con el servidor. Por favor, intente nuevamente.");
+  }
+}
+
+
+function mostrarModalError(mensaje) {
+  let modal = document.getElementById("modal-error");
+  if (!modal) {
+    modal = document.createElement("div");
+    modal.id = "modal-error";
+    modal.className = "modal";
+    modal.innerHTML = `
+      <div class="modal-contenido">
+        <h3>Error de autenticación</h3>
+        <p id="mensaje-error"></p>
+        <div class="modal-acciones">
+          <div class="accion" onclick="cerrarModalError()">Aceptar</div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+  }
+  document.getElementById("mensaje-error").textContent = mensaje;
+  modal.style.display = "flex";
+}
+
+function cerrarModalError() {
+  const modal = document.getElementById("modal-error");
+  if (modal) modal.style.display = "none";
+}
+
+
+
+
     document.addEventListener('DOMContentLoaded', function() {
       const passwordInput = document.getElementById("contrasena");
       const userInput = document.getElementById("usuario");

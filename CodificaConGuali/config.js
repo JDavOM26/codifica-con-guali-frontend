@@ -22,8 +22,9 @@ function getCookie(name) {
 }
 
 function inicializarConfig() {
+    const idUser = getCookie("idUser");
     inicializarGrid();
-    cargarPistasGuardadasPorUsuario(1); // Replace with actual user ID
+    cargarPistasGuardadasPorUsuario(idUser); 
     actualizarTrackList();
     actualizarStatus();
 }
@@ -89,7 +90,7 @@ function actualizarStatus() {
 async function logAction(idUser, action) {
     try {
          const token = getCookie("token");
-        const response = await fetch('https://codifica-con-guali.onrender.com/api/auth/enter-action-log', {
+        const response = await fetch('https://codifica-con-guali.onrender.com/api/admin/enter-action-log', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
@@ -159,7 +160,7 @@ function guardarPista() {
 async function guardarEnBackend(pista) {
     try {
         const token = getCookie("token");
-        const response = await fetch('https://codifica-con-guali.onrender.com/api/auth/save-track', {
+        const response = await fetch('https://codifica-con-guali.onrender.com/api/admin/save-track', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -239,7 +240,7 @@ function borrarPista() {
 async function borrarEnBackend(id) {
     try {
         const token = getCookie("token");
-        const response = await fetch(`https://codifica-con-guali.onrender.com/api/auth/delete-track?idTrack=${id}`, {
+        const response = await fetch(`https://codifica-con-guali.onrender.com/api/admin/delete-track?idTrack=${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
@@ -316,7 +317,7 @@ function actualizarBotones() {
 async function cargarPistasGuardadasPorUsuario(idUser) {
     try {
         const token = getCookie("token");
-        const response = await fetch(`https://codifica-con-guali.onrender.com/api/auth/get-track-user?idUser=${idUser}`, {
+        const response = await fetch(`https://codifica-con-guali.onrender.com/api/admin/get-track-user?idUser=${idUser}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',

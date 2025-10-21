@@ -10,7 +10,7 @@ async function filtrarEstadisticas() {
   const fechaInicio = document.getElementById("fecha-inicio").value;
   const fechaFin = document.getElementById("fecha-fin").value;
 
-  // Validate dates
+
   if (!fechaInicio || !fechaFin) {
     alert("Por favor, seleccione ambas fechas.");
     return;
@@ -25,7 +25,7 @@ async function filtrarEstadisticas() {
     }
 
 
-    const response =await fetch('https://codifica-con-guali.onrender.com/api/auth/view-stats', {
+    const response =await fetch('https://codifica-con-guali.onrender.com/api/admin/view-stats', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -45,12 +45,12 @@ async function filtrarEstadisticas() {
 
     const data = await response.json();
 
-    // Update table
+
     document.getElementById("visitantes").textContent = data.visits;
     document.getElementById("exitos").textContent = data.successes;
     document.getElementById("fallos").textContent = data.failures;
 
-    // Prepare data for chart
+
     const chartData = [{
       fecha: `${fechaInicio} - ${fechaFin}`,
       visitantes: data.visits,
@@ -58,7 +58,7 @@ async function filtrarEstadisticas() {
       fallos: data.failures,
     }];
 
-    // Update chart
+
     actualizarGrafico(chartData);
 
   } catch (error) {
@@ -70,7 +70,7 @@ async function filtrarEstadisticas() {
 function actualizarGrafico(datos) {
   const ctx = document.getElementById("grafico-estadisticas").getContext("2d");
 
-  // Destroy existing chart if it exists
+
   if (chartInstance) {
     chartInstance.destroy();
   }
@@ -119,9 +119,9 @@ function actualizarGrafico(datos) {
   });
 }
 
-// Load initial statistics on page load
+
 window.onload = () => {
-  // Set default date range (last 7 days, including today: September 30, 2025)
+
   const hoy = new Date('2025-09-30');
   const haceSieteDias = new Date(hoy);
   haceSieteDias.setDate(hoy.getDate() - 7);

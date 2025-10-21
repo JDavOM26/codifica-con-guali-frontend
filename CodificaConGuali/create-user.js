@@ -1,5 +1,5 @@
-// URL base de tu API
-const API_URL = 'https://codifica-con-guali.onrender.com/api/auth';
+
+const API_URL = 'https://codifica-con-guali.onrender.com/api/admin';
 
 let usuarios = [];
 
@@ -9,7 +9,7 @@ function getCookie(name) {
   return cookie ? cookie.split("=")[1] : null;
 }
 
-// Cargar usuarios desde la API
+
 async function cargarUsuariosDesdeAPI() {
   try {
      const token = getCookie("token");
@@ -23,7 +23,7 @@ async function cargarUsuariosDesdeAPI() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}` // inyectamos el token aquí
+        "Authorization": `Bearer ${token}`
       }
     });
     if (!response.ok) {
@@ -45,11 +45,11 @@ async function logAction(idUser, action) {
       alert("No hay token, inicia sesión primero.");
       return;
     }
-        const response = await fetch('http://localhost:8585/api/auth/enter-action-log', {
+        const response = await fetch('http://localhost:8585/api/admin/enter-action-log', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                 "Authorization": `Bearer ${token}` // inyectamos el token aquí
+                 "Authorization": `Bearer ${token}`
             },
             body: `idUser=${encodeURIComponent(idUser)}&action=${encodeURIComponent(action)}`
         });
@@ -117,7 +117,7 @@ async function guardarUsuario() {
     password: contrasena
   };
 
-  // Si hay un ID, estamos modificando
+
   if (id) {
     usuario.idUser = parseInt(id);
   }
@@ -153,7 +153,7 @@ async function guardarUsuario() {
     }
 
     limpiarFormulario();
-    await cargarUsuariosDesdeAPI(); // Recargar la lista
+    await cargarUsuariosDesdeAPI(); 
   } catch (error) {
     console.error('Error:', error);
     alert('Error al guardar el usuario. Verifica la conexión con el servidor.');
@@ -195,7 +195,7 @@ async function eliminarUsuario(id) {
        logAction(idUser, 'USER_DELETED');
       alert('Usuario eliminado exitosamente');
       limpiarFormulario();
-      await cargarUsuariosDesdeAPI(); // Recargar la lista
+      await cargarUsuariosDesdeAPI(); 
     } catch (error) {
       console.error('Error:', error);
       alert('Error al eliminar el usuario. Verifica la conexión con el servidor.');
@@ -203,5 +203,5 @@ async function eliminarUsuario(id) {
   }
 }
 
-// Cargar usuarios al iniciar la página
+
 window.onload = cargarUsuariosDesdeAPI;

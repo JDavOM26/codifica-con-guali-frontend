@@ -1,6 +1,6 @@
-const API_URL = 'https://codifica-con-guali.onrender.com/api/auth';
+const API_URL = 'https://codifica-con-guali.onrender.com/api/admin';
 
-// Variable para almacenar los históricos
+
 let historicos = [];
 
 function getCookie(name) {
@@ -9,10 +9,10 @@ function getCookie(name) {
   return cookie ? cookie.split("=")[1] : null;
 }
 
-// Función para cargar históricos desde la API
+
 async function cargarHistoricosDesdeAPI() {
   try {
-    const token = getCookie("token"); // obtenemos el token guardado
+    const token = getCookie("token"); 
     if (!token) {
       alert("No hay token, inicia sesión primero.");
       return;
@@ -22,7 +22,7 @@ async function cargarHistoricosDesdeAPI() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}` // inyectamos el token aquí
+        "Authorization": `Bearer ${token}` 
       }
     });
 
@@ -38,7 +38,7 @@ async function cargarHistoricosDesdeAPI() {
   }
 }
 
-// Función para formatear la fecha y hora
+
 function formatearFecha(timestamp) {
   const fecha = new Date(timestamp);
   const year = fecha.getFullYear();
@@ -50,10 +50,10 @@ function formatearFecha(timestamp) {
   return `${year}-${month}-${day} ${hours}:${minutes}`;
 }
 
-// Función para llenar la tabla con los datos del histórico
+
 function llenarHistorico() {
   const cuerpoTabla = document.getElementById("cuerpo-historico");
-  cuerpoTabla.innerHTML = ""; // Limpiar contenido previo
+  cuerpoTabla.innerHTML = ""; 
   
   historicos.forEach(entrada => {
     const fila = document.createElement("tr");
@@ -66,5 +66,5 @@ function llenarHistorico() {
   });
 }
 
-// Cargar el histórico al iniciar la página
+
 window.onload = cargarHistoricosDesdeAPI;
