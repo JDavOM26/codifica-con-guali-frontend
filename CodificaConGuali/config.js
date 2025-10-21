@@ -305,6 +305,8 @@ function actualizarBotones() {
     const btnCancelar = document.getElementById('btn-cancelar');
     const btnBorrar = document.getElementById('btn-borrar');
     const btnLimpiar = document.getElementById('btn-limpiar');
+     const btnCargar = document.getElementById('btn-cargar');
+      const btnExportar = document.getElementById('btn-exportar');
     if (btnGuardar) {
         btnGuardar.textContent = pistaEnEdicion ? 'Confirmar Cambios' : 'Guardar';
         btnGuardar.classList.toggle('editando', !!pistaEnEdicion);
@@ -312,6 +314,8 @@ function actualizarBotones() {
     if (btnCancelar) btnCancelar.style.display = pistaEnEdicion ? 'block' : 'none';
     if (btnBorrar) btnBorrar.style.display = pistaEnEdicion ? 'block' : 'none';
     if (btnLimpiar) btnLimpiar.style.display = pistaEnEdicion ? 'none' : 'block';
+     if (btnCargar) btnCargar.style.display = pistaEnEdicion ? 'none' : 'block';
+      if (btnExportar) btnExportar.style.display = pistaEnEdicion ? 'none' : 'block';
 }
 
 async function cargarPistasGuardadasPorUsuario(idUser) {
