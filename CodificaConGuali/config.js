@@ -353,16 +353,16 @@ async function cargarPistasGuardadasPorUsuario(idUser) {
     }
 }
 
-function cargarDesdeArchivo() {
+async function cargarDesdeArchivo() {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.json';
 
-    input.onchange = (event) => {
+    input.onchange = async (event) => {
         const file = event.target.files[0];
         if (file) {
             const reader = new FileReader();
-            reader.onload = (e) => {
+            reader.onload = async (e) => {
                 try {
                     const pistas = JSON.parse(e.target.result);
                     if (!Array.isArray(pistas)) {
@@ -377,12 +377,18 @@ function cargarDesdeArchivo() {
                             throw new Error('Formato de pista inválido');
                         }
                     });
-                    // Merge new pistas with existing ones, avoiding duplicates
-                    pistasGuardadas = [...pistasGuardadas, ...pistas.filter(p => !pistasGuardadas.some(existing => existing.nombre === p.nombre))];
-                    // Save to backend
-                    pistas.forEach(pista => guardarEnBackend(pista));
+
+                    // Avoid duplicates by filtering out existing pistas by name
+                    const nuevasPistas = pistas.filter(p => !pistasGuardadas.some(existing => existing.nombre === p.nombre));
+
+                    // Save all new pistas to backend and wait for completion
+                    const promesasGuardado = nuevasPistas.map(pista => guardarEnBackend(pista));
+                    await Promise.all(promesasGuardado); // Wait for all saves to complete
+
+                    // Reload pistas from backend to ensure sync
+                    await cargarPistasGuardadasPorUsuario(idUser);
+
                     logAction(idUser, 'LOAD_TRACKS_FROM_FILE');
-                    actualizarTrackList();
                     alert('Pistas cargadas desde archivo exitosamente');
                 } catch (error) {
                     console.error('Error al leer el archivo:', error);
@@ -395,7 +401,6 @@ function cargarDesdeArchivo() {
 
     input.click();
 }
-
 function exportarHaciaArchivo() {
     if (pistasGuardadas.length === 0) {
         alert('No hay pistas guardadas para exportar');
