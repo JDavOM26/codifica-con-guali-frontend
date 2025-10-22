@@ -39,17 +39,12 @@ async function cargarUsuariosDesdeAPI() {
 
 async function logAction(idUser, action) {
     try {
-          const token = getCookie("token");
-
-      if (!token) {
-      alert("No hay token, inicia sesión primero.");
-      return;
-    }
-        const response = await fetch('http://localhost:8585/api/admin/enter-action-log', {
+         const token = getCookie("token");
+        const response = await fetch('https://codifica-con-guali.onrender.com/api/admin/enter-action-log', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded',
-                 "Authorization": `Bearer ${token}`
+                "Authorization": `Bearer ${token}`
             },
             body: `idUser=${encodeURIComponent(idUser)}&action=${encodeURIComponent(action)}`
         });
@@ -202,6 +197,8 @@ async function eliminarUsuario(id) {
     }
   }
 }
+
+
 
 
 window.onload = cargarUsuariosDesdeAPI;

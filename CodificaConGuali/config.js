@@ -315,7 +315,7 @@ function actualizarBotones() {
     if (btnBorrar) btnBorrar.style.display = pistaEnEdicion ? 'block' : 'none';
     if (btnLimpiar) btnLimpiar.style.display = pistaEnEdicion ? 'none' : 'block';
      if (btnCargar) btnCargar.style.display = pistaEnEdicion ? 'none' : 'block';
-      if (btnExportar) btnExportar.style.display = pistaEnEdicion ? 'none' : 'block';
+     if (btnExportar) btnExportar.style.display = pistaEnEdicion ? 'none' : 'block';
 }
 
 async function cargarPistasGuardadasPorUsuario(idUser) {
