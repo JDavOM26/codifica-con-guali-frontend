@@ -108,7 +108,7 @@ async function logAction(idUser, action) {
     }
 }
 
-function guardarPista() {
+async function guardarPista() {
     if (seleccionOrdenada.length === 0) {
         alert('Selecciona al menos un elemento para guardar la pista');
         return;
@@ -126,7 +126,7 @@ function guardarPista() {
                 pistasGuardadas[indice] = { ...pistaEnEdicion };
             }
             
-            guardarEnBackend(pistaEnEdicion);
+            await guardarEnBackend(pistaEnEdicion); // Wait for backend save
             logAction(idUser, 'EDIT_TRACK');
             alert(`Pista "${pistaEnEdicion.nombre}" actualizada exitosamente`);
             pistaEnEdicion = null;
@@ -147,8 +147,7 @@ function guardarPista() {
             fechaCreacion: new Date(),
             idUser: idUser
         };
-        pistasGuardadas.push(nuevaPista);
-        guardarEnBackend(nuevaPista);
+        await guardarEnBackend(nuevaPista); // Save to backend and wait
         logAction(idUser, 'SAVE_TRACK');
         alert(`Pista "${nombrePista}" guardada exitosamente`);
         inicializarGrid();
@@ -181,17 +180,17 @@ async function guardarEnBackend(pista) {
             const updatedPista = {
                 id: savedTrack.idPista,
                 nombre: savedTrack.nombre,
-                configuracion: JSON.parse(savedTrack.configuracion),
+                configuracion: typeof savedTrack.configuracion === 'string' ? JSON.parse(savedTrack.configuracion) : savedTrack.configuracion,
                 fechaCreacion: new Date(savedTrack.fechaCreacion),
                 idUser: savedTrack.idUser
             };
             const index = pistasGuardadas.findIndex(p => p.id === savedTrack.idPista);
             if (index !== -1) {
-                pistasGuardadas[index] = updatedPista;
+                pistasGuardadas[index] = updatedPista; // Update existing track
             } else {
-                pistasGuardadas.push(updatedPista);
+                pistasGuardadas.push(updatedPista); // Add new track
             }
-            actualizarTrackList();
+            actualizarTrackList(); // Update UI after modifying pistasGuardadas
         } else {
             console.error('Error al guardar la pista:', response.status);
             alert('Error al guardar la pista en el servidor');
