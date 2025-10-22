@@ -329,7 +329,6 @@ async function validarAutenticacion() {
       cerrarModalAutenticacion();
       window.location.href = "config.html";
     } else {
-      await sendUsageLog('FAIL');
       mostrarModalError(data.message || "Usuario o contraseña incorrectos.");
       document.getElementById("contrasena").value = "";
       document.getElementById("usuario").focus();
