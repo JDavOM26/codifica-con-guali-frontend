@@ -59,7 +59,7 @@ function llenarHistorico() {
     const fila = document.createElement("tr");
     fila.innerHTML = `
       <td>${formatearFecha(entrada.timestamp)}</td>
-      <td>Usuario ${entrada.idUser || 'N/A'}</td>
+      <td>ID Usuario: ${entrada.idUser || 'N/A'}</td>
       <td>${entrada.action}</td>
     `;
     cuerpoTabla.appendChild(fila);
